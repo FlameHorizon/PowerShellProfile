@@ -3,7 +3,7 @@
 ## Instalation
 
 You can deploy this profile using `deploy.ps` file. It does not require admin rights. After deploy,
-reload your session.
+reload your session. Note, you can add `-y` to forcefully overwrite previous profile.
 
 ## Reloading profile in session
 

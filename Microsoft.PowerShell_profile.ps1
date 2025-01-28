@@ -29,7 +29,7 @@ Set-Alias vs Start-VisualStudio -Option AllScope
 function Get-GitStatus { & git status }
 New-Alias -Name gs -Value Get-GitStatus -Force -Option AllScope
 
-function Get-GitCommit { & git commit }
+function Get-GitCommit { & git commit -ev }
 New-Alias -Name gc -Value Get-GitCommit -Force -Option AllScope
 
 function Get-GitAdd { & git add --all }
