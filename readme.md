@@ -17,7 +17,7 @@ You can reload profile and apply changes without restarting terminal:
 
 Some aliases require user variables to exist in the system.
 
-- `XDG_CONFIG_HOME` - points to location where configuration of `nvim` is. Default is `~/AppData/Local/`
+- `XDG_CONFIG_HOME` - points to location where configuration of `nvim` is. Default is `~/AppData/Local/`. Read more on [neovim.io](https://neovim.io/doc/user/starting.html#%24XDG_CONFIG_HOME)
 
 ## Locate your PowerShell Profile file (optional)
 
