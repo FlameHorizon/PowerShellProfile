@@ -42,7 +42,7 @@ function Get-GitPull { & git pull }
 New-Alias -Name gpl -Value Get-GitPull -Force -Option AllScope
 
 function Get-GitCheckout { & git checkout $args }
-New-Alias -Name co -Value Get-GitCheckout -Force -Option AllScope
+New-Alias -Name gco -Value Get-GitCheckout -Force -Option AllScope
 
 function Get-GitBranch { & git branch $args }
 New-Alias -Name gb -Value Get-GitBranch -Force -Option AllScope
