@@ -51,3 +51,12 @@ function ChangeDirectory-Fzf {
     & cd (fzf --walker dir,follow,hidden --walker-skip .git,node_modules,target --preview 'tree -C {}') 
 }
 New-Alias -Name cdc -Value ChangeDirectory-Fzf -Option AllScope
+
+function Dotnet-Build { & dotnet build }
+New-Alias -Name db -Value Dotnet-Build -Force -Option AllScope
+
+function Dotnet-Run { & dotnet run }
+New-Alias -Name dr -Value Dotnet-Run -Force -Option AllScope
+
+function Reload-Profile { . $PROFILE }
+New-Alias -Name source -Value Reload-Profile -Force -Option AllScope
