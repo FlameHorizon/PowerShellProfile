@@ -48,7 +48,7 @@ function Get-GitBranch { & git branch $args }
 New-Alias -Name gb -Value Get-GitBranch -Force -Option AllScope
 
 function ChangeDirectory-Fzf { 
-    & cd (fzf --walker dir,follow,hidden --walker-skip .git,node_modules,target --preview 'tree -C {}') 
+    & cd (fzf --walker dir,follow --walker-root c:\ --walker-skip Windows,'Program Files','Program Files (x86)',ProgramData)
 }
 New-Alias -Name cdc -Value ChangeDirectory-Fzf -Option AllScope
 
