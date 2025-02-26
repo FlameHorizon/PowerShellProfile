@@ -53,7 +53,7 @@ function ChangeDirectory-Fzf {
 New-Alias -Name cdf -Value ChangeDirectory-Fzf -Option AllScope
 
 function ListFiles-Fzf { 
-    & cd (fzf --walker file --walker-root c:\ --walker-skip Windows,'Program Files','Program Files (x86)',ProgramData --preview 'cat {}')
+    & fzf --walker file --walker-root c:\ --walker-skip Windows,'Program Files','Program Files (x86)',ProgramData --preview 'cat {}'
 }
 New-Alias -Name lsf -Value ListFiles-Fzf -Option AllScope
 
@@ -65,3 +65,42 @@ New-Alias -Name dr -Value Dotnet-Run -Force -Option AllScope
 
 function Reload-Profile { . $PROFILE }
 New-Alias -Name source -Value Reload-Profile -Force -Option AllScope
+
+function Buffer-To-Nvim { 
+    $state = @{
+	Width = $host.ui.rawui.BufferSize.Width
+	Height = if($SkipLast.IsPresent) { $host.ui.rawui.CursorPosition.Y - 1 } else { $host.ui.rawui.CursorPosition.Y }
+	Rect = (new-object System.Management.Automation.Host.Rectangle 0,0, ($host.ui.rawui.BufferSize.Width-1), $host.ui.rawui.CursorPosition.Y)
+	DefaultBackgroundColor = [System.ConsoleColor]::DarkMagenta
+	DefaultForegroundColor = [System.ConsoleColor]::White
+    }
+
+    $buffer = $host.ui.rawui.GetBufferContents($state.Rect)
+    $outputBuilder = new-object System.Text.StringBuilder
+
+    $firstRow = 0
+
+    if($Last -gt 0 -and ($state.Height -$Last) -gt 0)
+    {
+	$firstRow = $state.Height - $Last;
+    }
+
+    for ($row=$firstRow; $row -lt $state.Height; $row++)
+    {
+	for($col = 0; $col -lt $state.Width; $col++)
+	{
+	    $cell = $buffer[$row, $col]
+	    [void]$outputBuilder.Append($cell.Character)
+	}
+
+	for ($index = $outputBuilder.Length-1; $outputBuilder.Length -gt 0 -and [String]::IsNullOrWhiteSpace($outputBuilder[$index]); $index--)
+	{
+	    [void]$outputBuilder.Remove($index, 1);
+	}
+
+	[void]$outputBuilder.AppendLine()
+    }
+
+    $outputBuilder.ToString() | nvim
+}
+New-Alias -Name bn -Value Buffer-To-Nvim -Force -Option AllScope
