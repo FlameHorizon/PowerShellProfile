@@ -50,7 +50,12 @@ New-Alias -Name gb -Value Get-GitBranch -Force -Option AllScope
 function ChangeDirectory-Fzf { 
     & cd (fzf --walker dir,follow --walker-root c:\ --walker-skip Windows,'Program Files','Program Files (x86)',ProgramData)
 }
-New-Alias -Name cdc -Value ChangeDirectory-Fzf -Option AllScope
+New-Alias -Name cdf -Value ChangeDirectory-Fzf -Option AllScope
+
+function ListFiles-Fzf { 
+    & cd (fzf --walker file --walker-root c:\ --walker-skip Windows,'Program Files','Program Files (x86)',ProgramData --preview 'cat {}')
+}
+New-Alias -Name lsf -Value ListFiles-Fzf -Option AllScope
 
 function Dotnet-Build { & dotnet build }
 New-Alias -Name db -Value Dotnet-Build -Force -Option AllScope
